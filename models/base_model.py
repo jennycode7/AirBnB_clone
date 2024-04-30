@@ -15,8 +15,8 @@ class BaseModel:
         To initialize self
         '''
         self.id = str(uuid.uuid4())
-        self.createdtime = datetime.datetime.now()
-        self.update_at = self.createdtime
+        self.created_at = datetime.datetime.now()
+        self.update_at = self.created_at
 
     def __str__(self):
         '''
@@ -37,6 +37,6 @@ class BaseModel:
         '''
         to_obj = self.__dict__.copy()
         to_obj['name'] = self.__class__.__name__
-        to_obj['createdtime'] = self.createdtime.isoformat()
+        to_obj['created_at'] = self.created_at.isoformat()
         to_obj['updated_at'] = self.update_at.isoformat()
         return to_obj
