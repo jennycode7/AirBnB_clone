@@ -36,7 +36,7 @@ class BaseModel:
         converts to dictionary
         '''
         to_obj = self.__dict__.copy()
-        to_obj['name'] = self.__class__.__name__
+        to_obj['__class__'] = type(self).__name__
         to_obj['created_at'] = self.created_at.isoformat()
         to_obj['updated_at'] = self.updated_at.isoformat()
         return to_obj
