@@ -2,7 +2,7 @@
 '''
 A model
 '''
-from models.engine.main2 import FileStorage
+from models.engine.file_storage import FileStorage
 
 storage = FileStorage()
 storage.reload()
