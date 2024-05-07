@@ -19,7 +19,7 @@ class HBNBCommand(cmd.Cmd):
         pass
 
     
-    def do_help(self, arg: str) -> bool | None:
+    def do_help(self, arg):
         ''' do help '''
         return super().do_help(arg)
     
