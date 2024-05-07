@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+'''
+A module
+'''
 import cmd
 
 class HBNBCommand(cmd.Cmd):
