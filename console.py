@@ -102,25 +102,25 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, arg):
         ''' Updates an Instances'''
         args = arg.split(' ')
-        length = len(args)
-        if len(args) == 1:
+        class_name = self.parseline(arg)[0]
+        if class_name is None:
             print("** class name missing **")
             return
-        elif args[0] not in self.validated_classes:
+        elif class_name not in self.validated_classes:
             print("** class doesn't exist **")
             return
-        elif len(args) == 2:
+        elif len(args) == 1:
             print("** instance id missing **")
             return
-        inst_id = args[0] + '.' + args[1]
+        inst_id = class_name + '.' + args[1]
         inst = models.storage.all().get(inst_id)
         if inst is None:
             print("** no instance found **")
             return
-        elif len(args) == 23:
+        elif len(args) == 2:
             print("** attribute name missing **")
             return
-        elif len(args) == 4:
+        elif len(args) == 3:
             print("** value missing **")
             return
         elif args[2] not in self.update:
