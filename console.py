@@ -53,7 +53,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         elif className not in self.validated_classes:
             print("** class doesn't exist **")
-        if Id_name == '':
+        elif Id_name == '':
             print("** instance id missing **")
         inst = models.storage.all().get(className + '.' + Id_name)
         if inst is None:
@@ -70,7 +70,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         elif className not in self.validated_classes:
             print("** class doesn't exist **")
-        if Id_name == '':
+        elif Id_name == '':
             print("** instance id missing **")
         inst_id = className + '.' + Id_name
         inst = models.storage.all().get(className + '.' + Id_name)
@@ -99,18 +99,18 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         elif args[0] not in self.validated_classes:
             print("** class doesn't exist **")
-        if args[1] is None:
-            print("** class name missing **")
+        elif args[1] is None:
+            print("** no instance found **")
         inst_id = args[0] + '.' + args[1]
         inst = models.storage.all().get(inst_id)
         if inst is None:
-            print("** no instance found **")
+            print("** instance id missing **")
 
-        if args[2] is None:
+        elif args[2] is None:
             print("** attribute name missing **")
         elif args[3] is None:
             print("** value missing **")
-        if args[2] not in self.update:
+        elif args[2] not in self.update:
             setattr(inst, args[2], args[3])
             setattr(inst, 'updated_at', datetime.now())
             models.storage.save()
