@@ -103,13 +103,13 @@ class HBNBCommand(cmd.Cmd):
         ''' Updates an Instances'''
         args = arg.split(' ')
         length = len(args)
-        if len(args) == 0:
+        if len(args) == 1:
             print("** class name missing **")
             return
         elif args[0] not in self.validated_classes:
             print("** class doesn't exist **")
             return
-        elif len(args) == 1:
+        elif len(args) == 2:
             print("** instance id missing **")
             return
         inst_id = args[0] + '.' + args[1]
@@ -117,10 +117,10 @@ class HBNBCommand(cmd.Cmd):
         if inst is None:
             print("** no instance found **")
             return
-        elif len(args) == 2:
+        elif len(args) == 23:
             print("** attribute name missing **")
             return
-        elif len(args) == 3:
+        elif len(args) == 4:
             print("** value missing **")
             return
         elif args[2] not in self.update:
