@@ -51,10 +51,13 @@ class HBNBCommand(cmd.Cmd):
 
         if className is None:
             print("** class name missing **")
+            return
         elif className not in self.validated_classes:
             print("** class doesn't exist **")
-        elif Id_name == '':
+            return
+        if Id_name == '':
             print("** instance id missing **")
+            return
         inst = models.storage.all().get(className + '.' + Id_name)
         if inst is None:
             print("** no instance found **")
@@ -68,14 +71,18 @@ class HBNBCommand(cmd.Cmd):
 
         if className is None:
             print("** class name missing **")
+            return
         elif className not in self.validated_classes:
             print("** class doesn't exist **")
+            return
         elif Id_name == '':
             print("** instance id missing **")
+            return
         inst_id = className + '.' + Id_name
         inst = models.storage.all().get(className + '.' + Id_name)
         if inst is None:
             print("** no instance found **")
+            return
         else:
             del models.storage.all()[inst_id]
             models.storage.save()
@@ -95,21 +102,27 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, arg):
         ''' Updates an Instances'''
         args = arg.split(' ')
-        if args[0] is None:
+        length = len(args)
+        if len(args) == 0:
             print("** class name missing **")
+            return
         elif args[0] not in self.validated_classes:
             print("** class doesn't exist **")
-        elif args[1] is None:
-            print("** no instance found **")
+            return
+        elif len(args) == 1:
+            print("** instance id missing **")
+            return
         inst_id = args[0] + '.' + args[1]
         inst = models.storage.all().get(inst_id)
         if inst is None:
-            print("** instance id missing **")
-
-        elif args[2] is None:
+            print("** no instance found **")
+            return
+        elif len(args) == 2:
             print("** attribute name missing **")
-        elif args[3] is None:
+            return
+        elif len(args) == 3:
             print("** value missing **")
+            return
         elif args[2] not in self.update:
             setattr(inst, args[2], args[3])
             setattr(inst, 'updated_at', datetime.now())
