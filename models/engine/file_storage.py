@@ -23,6 +23,7 @@ class FileStorage:
     def reload(self):
         if path.exists(self.__file_path):
             from models.base_model import BaseModel
+            from models.user import User
             with open(self.__file_path, 'r') as file:
                 data = json.load(file)
                 for key, value in data.items():

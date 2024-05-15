@@ -5,6 +5,7 @@ A module
 import cmd
 from datetime import datetime
 from models.base_model import BaseModel
+from models.user import User
 import models
 
 
@@ -13,7 +14,7 @@ class HBNBCommand(cmd.Cmd):
     A command prompt
     '''
     prompt = '(hbnb) '
-    validated_classes = ['BaseModel', 'FileStorage']
+    validated_classes = ['BaseModel', 'FileStorage', 'User']
     update = ['id', 'created_at', 'updated_at']
 
     def do_quit(self, arg):
@@ -37,6 +38,10 @@ class HBNBCommand(cmd.Cmd):
         if arg:
             if (arg == 'BaseModel'):
                 inst = BaseModel()
+                inst.save()
+                print(inst.id)
+            elif (arg == 'User'):
+                inst = User()
                 inst.save()
                 print(inst.id)
             else:
