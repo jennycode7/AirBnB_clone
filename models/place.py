@@ -19,3 +19,4 @@ class Place(BaseModel):
     latitude = 0
     longitude = 0
     amenity_ids = ''
+    number_bathrooms = 0
