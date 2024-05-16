@@ -5,6 +5,11 @@ A module
 import cmd
 from datetime import datetime
 from models.base_model import BaseModel
+from models.state import State
+from models.review import Review
+from models.city import City
+from models.place import Place
+from models.amenity import Amenity
 from models.user import User
 import models
 
@@ -14,7 +19,8 @@ class HBNBCommand(cmd.Cmd):
     A command prompt
     '''
     prompt = '(hbnb) '
-    validated_classes = ['BaseModel', 'FileStorage', 'User']
+    validated_classes = ['BaseModel', 'FileStorage', 'User',
+            'Place', 'Review', 'State', 'Amenity', 'City']
     update = ['id', 'created_at', 'updated_at']
 
     def do_quit(self, arg):
@@ -35,19 +41,15 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, arg):
         '''Creates an instances'''
-        if arg:
-            if (arg == 'BaseModel'):
-                inst = BaseModel()
+        args = self.parseline(arg)[0]
+        if args is None:
+            print("** class name missing **")
+        if args in self.validated_classes:
+                inst = eval(args)()
                 inst.save()
                 print(inst.id)
-            elif (arg == 'User'):
-                inst = User()
-                inst.save()
-                print(inst.id)
-            else:
-                print("** class doesn't exist **")
         else:
-            print('** class name missing **')
+            print("** class doesn't exist **")
 
     def do_show(self, arg):
         ''' Shows Id'''

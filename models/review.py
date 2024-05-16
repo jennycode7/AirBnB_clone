@@ -5,11 +5,10 @@ A model
 from models.base_model import BaseModel
 
 
-class User(BaseModel):
+class Review(BaseModel):
     '''
     A class
     '''
-    email = ''
-    password = ''
-    first_name = ''
-    last_name = ''
+    place_id = ''
+    user_id = ''
+    text = ''
