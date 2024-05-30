@@ -2,6 +2,7 @@
 '''
 A module
 '''
+import re
 import cmd
 from datetime import datetime
 from models.base_model import BaseModel
@@ -20,7 +21,7 @@ class HBNBCommand(cmd.Cmd):
     '''
     prompt = '(hbnb) '
     validated_classes = ['BaseModel', 'FileStorage', 'User',
-            'Place', 'Review', 'State', 'Amenity', 'City']
+                         'Place', 'Review', 'State', 'Amenity', 'City']
     update = ['id', 'created_at', 'updated_at']
 
     def do_quit(self, arg):
@@ -45,9 +46,9 @@ class HBNBCommand(cmd.Cmd):
         if args is None:
             print("** class name missing **")
         if args in self.validated_classes:
-                inst = eval(args)()
-                inst.save()
-                print(inst.id)
+            inst = eval(args)()
+            inst.save()
+            print(inst.id)
         else:
             print("** class doesn't exist **")
 
@@ -134,6 +135,43 @@ class HBNBCommand(cmd.Cmd):
             setattr(inst, args[2], args[3])
             setattr(inst, 'updated_at', datetime.now())
             models.storage.save()
+
+    def do_count(self, line):
+        '''
+        for counting instances
+        '''
+        class_name = self.parseline(line)[0]
+        insts = models.storage.all()
+        i = 0
+        for inst in insts:
+            if inst.startswith(class_name):
+                i += 1
+        print(i)
+
+    def default(self, line):
+        '''
+        for default commands
+        '''
+        args = re.split(r'\,|\"|\)|\(|\.', line)
+        new_line = ''
+        for i in range(len(args)):
+            if args[0] == '' or i == 1:
+                new_line += ' '
+                continue
+            new_line += args[i]
+        if len(args) < 2:
+            print("No Such Command")
+            return
+        elif args[1] == 'all':
+            self.do_all(new_line)
+        elif args[1] == 'show':
+            self.do_show(new_line)
+        elif args[1] == 'destroy':
+            self.do_destroy(new_line)
+        elif args[1] == 'update':
+            self.do_update(new_line)
+        elif args[1] == 'count':
+            self.do_count(new_line)
 
 
 if __name__ == '__main__':
